@@ -28,7 +28,7 @@ php artisan key:generate
 
 # Crear base de dades i executar migracions
 php artisan migrate --seed
-
+```
 ## ⚽ Funcionalitats
 
 - **Gestió de jugadores**
