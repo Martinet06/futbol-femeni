@@ -1,1 +1,30 @@
+# ⚽ Futbol Femení
 
+Aplicació Laravel per a la gestió de futbol femení: equips, jugadores, partits i resultats.
+
+## 🧩 Requisits
+
+- PHP ≥ 8.1  
+- Composer  
+- Node.js & NPM  
+- Base de dades (MySQL, SQLite, o similar)
+
+## ⚙️ Instal·lació
+
+```bash
+# Clonar el repositori
+git clone https://github.com/Martinet06/futbol-femeni.git
+cd futbol-femeni
+
+# Instal·lar dependències PHP
+composer install
+
+# Instal·lar dependències front-end
+npm install && npm run build
+
+# Configurar l'entorn
+cp .env.example .env
+php artisan key:generate
+
+# Crear base de dades i executar migracions
+php artisan migrate --seed
