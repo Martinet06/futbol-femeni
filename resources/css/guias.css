@@ -1,0 +1,188 @@
+/* --- Estils generals --- */
+body {
+    font-family: system-ui, Arial, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 1rem;
+    color: #333;
+}
+
+h1, h2, h3 {
+    color: #002080;
+    margin-bottom: 0.5rem;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* --- Navegació --- */
+nav {
+    background-color: #002080;
+    padding: 10px 20px;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+nav a:hover {
+    color: #ffd700;
+}
+
+/* --- Taules --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin: 1rem 0;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px 14px;
+    text-align: left;
+}
+
+table th {
+    background-color: #eaf0ff;
+    color: #002080;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9fbff;
+}
+
+table tr:hover {
+    background-color: #eef4ff;
+}
+
+/* --- Formularis --- */
+form {
+    background-color: white;
+    padding: 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-top: 0.8rem;
+    color: #002080;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #002080;
+    outline: none;
+}
+
+button,
+input[type="submit"] {
+    background-color: #002080;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    margin-top: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+button:hover,
+input[type="submit"]:hover {
+    background-color: #00134d;
+}
+
+/* --- Alertes --- */
+.alert {
+    padding: 12px 15px;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.alert-success {
+    background-color: #e6f4ea;
+    color: #256029;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #fcebea;
+    color: #a94442;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-info {
+    background-color: #e7f3fe;
+    color: #0c5460;
+    border: 1px solid #b8daff;
+}
+
+/* --- Targetes d’equips --- */
+.equip {
+    border: 1px solid #ddd;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.equip h2 {
+    margin: 0;
+    color: #002080;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+    nav li {
+        display: block;
+        margin: 8px 0;
+    }
+
+    table, form {
+        font-size: 0.95rem;
+    }
+}

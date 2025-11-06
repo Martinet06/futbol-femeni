@@ -1,6 +1,8 @@
 @import 'tailwindcss'; 
 
-@import './equip.css'; 
+@import './equips.css'; 
+
+@import './guias.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php'; 
 

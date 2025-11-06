@@ -25,62 +25,6 @@ class EquipController extends Controller
         ],
     ];
 
-    public $estadis = [
-        [
-            'nom' => 'Estadi Johan Cruyff',
-            'localitat' => 'Sant Joan Despí',
-            'capacitat' => 6000,
-            'equip' => 'FC Barcelona Femení'
-        ],
-        [
-            'nom' => 'Centro Deportivo Wanda Alcalá de Henares',
-            'localitat' => 'Alcalá de Henares',
-            'capacitat' => 2800,
-            'equip' => 'Atlètic de Madrid Femení'
-        ],
-        [
-            'nom' => 'Estadio Alfredo Di Stéfano',
-            'localitat' => 'Madrid',
-            'capacitat' => 6000,
-            'equip' => 'Real Madrid Femení'
-        ],
-    ];
-
-
-    public $jugadores = [
-        [
-            'nom' => 'Alexia Putellas',
-            'equip' => 'Barça Femení',
-            'posicio' => 'Migcampista'
-        ],
-        [
-            'nom' => 'Esther González',
-            'equip' => 'Atlètic de Madrid',
-            'posicio' => 'Davantera'
-        ],
-        [
-            'nom' => 'Misa Rodríguez',
-            'equip' => 'Real Madrid Femení',
-            'posicio' => 'Portera'
-        ],
-    ];
-
-
-    public $partits = [
-        [
-            'local' => 'Barça Femení',
-            'visitant' => 'Atlètic de Madrid',
-            'data' => '2024-11-30',
-            'resultat' => null,
-        ],
-        [
-            'local' => 'Real Madrid Femení',
-            'visitant' => 'Barça Femení',
-            'data' => '2024-12-15',
-            'resultat' => '0-3'
-        ],
-    ];
-
     public function index()
     {
         $equips = Session::get('equips', $this->equips);

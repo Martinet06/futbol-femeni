@@ -24,7 +24,7 @@
     </div>
     <div>
         <label for="posicio" class="block font-bold">Posició:</label>
-        <select name="capacitat" id="capacitat" value="{{ old('capacitat') }}" class="border p-2 w-full">
+        <select name="posicio" id="posicio" value="{{ old('posicio') }}" class="border p-2 w-full">
             <option value="Portera">Portera</option>
             <option value="Defensa">Defensa</option>
             <option value="Migcampista">Migcampista</option>

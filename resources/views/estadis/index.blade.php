@@ -1,8 +1,8 @@
 @extends('layouts.app')
-@section('title', "Guia d'Estadis")
+@section('title', "Llistat d'Estadis")
 
 @section('content')
-<h1 class="text-3xl font-bold text-blue-800 mb-6">Guia d'Estadis</h1>
+<h1 class="text-3xl font-bold text-blue-800 mb-6">Llistat d'Estadis</h1>
 
 @if (session('success'))
 <div class="bg-green-100 text-green-700 p-2 mb-4">{{ session('success') }}</div>
