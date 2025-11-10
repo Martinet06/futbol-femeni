@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class EstadisController extends Controller
+class EstadiController extends Controller
 {
 
     public $estadis = [
