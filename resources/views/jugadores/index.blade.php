@@ -17,17 +17,29 @@
         <tr>
             <th class="border border-gray-300 p-2">Nom</th>
             <th class="border border-gray-300 p-2">Equip</th>
-            <th class="border border-gray-300 p-2">Posició</th>
+            <th class="border border-gray-300 p-2">Dorsal</th>
+            <th class="border border-gray-300 p-2">Data Naixement</th>
+            <th class="border border-gray-300 p-2">Foto</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($jugadores as $key => $jugadora)
+        @foreach($jugadores as $jugadora)
         <tr class="hover:bg-gray-100">
             <td class="border border-gray-300 p-2">
-                <a href="{{ route('jugadores.show', $key) }}" class="text-blue-700 hover:underline">{{ $jugadora['nom'] }}</a>
+                <a href="{{ route('jugadores.show', $jugadora) }}" class="text-blue-700 hover:underline">
+                    {{ $jugadora->nom }}
+                </a>
             </td>
-            <td class="border border-gray-300 p-2">{{ $jugadora['equip'] }}</td>
-            <td class="border border-gray-300 p-2">{{ $jugadora['posicio'] }}</td>
+            <td class="border border-gray-300 p-2">{{ $jugadora->equip->nom }}</td>
+            <td class="border border-gray-300 p-2">{{ $jugadora->dorsal }}</td>
+            <td class="border border-gray-300 p-2">{{ $jugadora->data_naixement }}</td>
+            <td class="border border-gray-300 p-2">
+                @if($jugadora->foto)
+                <img src="{{ asset('storage/' . $jugadora->foto) }}" alt="Foto" class="w-12 h-12 object-cover rounded">
+                @else
+                -
+                @endif
+            </td>
         </tr>
         @endforeach
     </tbody>

@@ -19,8 +19,14 @@
         <input type="text" name="nom" id="nom" value="{{ old('nom') }}" class="border p-2 w-full">
     </div>
     <div>
-        <label for="estadi" class="block font-bold">Estadi:</label>
-        <input type="text" name="estadi" id="estadi" value="{{ old('estadi') }}" class="border p-2 w-full">
+        <label for="estadi_id" class="block font-bold">Estadi:</label>
+        <select name="estadi_id" id="estadi_id" class="border p-2 w-full">
+            @foreach ($estadis as $estadi)
+            <option value="{{ $estadi->id }}" {{ old('estadi_id') == $estadi->id ? 'selected' : '' }}>
+                {{ $estadi->nom }}
+            </option>
+            @endforeach
+        </select>
     </div>
     <div>
         <label for="titols" class="block font-bold">Títols:</label>

@@ -2,60 +2,63 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEquipRequest;
+use App\Http\Requests\UpdateEquipRequest;
+use App\Models\Equip;
+use App\Models\Estadi;
+use App\Services\EquipService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class EquipController extends Controller
 {
-    public $equips = [
-        [
-            'nom' => 'Barça Femení',
-            'estadi' => 'Camp Nou',
-            'titols' => 30
-        ],
-        [
-            'nom' => 'Atlètic de Madrid',
-            'estadi' => 'Cívitas Metropolitano',
-            'titols' => 10
-        ],
-        [
-            'nom' => 'Real Madrid Femení',
-            'estadi' => 'Alfredo Di Stéfano',
-            'titols' => 5
-        ],
-    ];
+    public function __construct(private EquipService $servei) {}
 
+    // GET /equips
     public function index()
     {
-        $equips = Session::get('equips', $this->equips);
-        return view('equips.index', compact('equips'));
+        return view('equips.index', ['equips' => $this->servei->llistar()]);
     }
 
-    public function show(int $id)
+    // GET /equips/create
+    public function create()
     {
-        $equips = Session::get('equips', $this->equips);
-        abort_if(!isset($equips[$id]), 404);
-        $equip = $equips[$id];
+        $estadis = Estadi::all();
+        return view('equips.create', compact('estadis'));
+    }
+    // POST /equips
+    public function store(StoreEquipRequest $request)
+    {
+        $this->servei->guardar($request->validated());
+        return redirect()->route('equips.index');
+    }
+
+    // GET /equips/{id}
+    public function show(Equip $equip)
+    {
         return view('equips.show', compact('equip'));
     }
 
-    public function create()
+    // GET /equips/{id}/edit
+    public function edit(Equip $equip)
     {
-        return view('equips.create');
+        return view('equips.edit', compact('equip'));
     }
 
-    public function store(Request $request)
+    // PUT /equips/{id}/edit
+    public function update(Request $request, Equip $equip)
     {
-        $validated = $request->validate([
-            'nom'    => 'required|min:3',
-            'estadi' => 'required',
-            'titols' => 'required|integer|min:0',
-        ]);
+        $this->servei->actualitzar($equip, $request->validated());
+        return redirect()->route('equips.index')->with('ok', 'Equip actualitzat');
+    }
 
-        $equips = Session::get('equips', $this->equips);
-        $equips[] = $validated;
-        Session::put('equips', $equips);
 
-        return redirect()->route('equips.index')->with('success', 'Equip afegit correctament!');
+
+
+    // DELETE /equips/{id}
+    public function destroy($id)
+    {
+        $this->servei->eliminar($id);
+        return redirect()->route('equips.index');
     }
 }
