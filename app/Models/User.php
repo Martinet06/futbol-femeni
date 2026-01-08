@@ -33,6 +33,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function equip()
+    {
+        return $this->belongsTo(Equip::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *

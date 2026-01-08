@@ -1,6 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.equip')
 @section('title', "Detall d'Equip")
-
 @section('content')
 <x-equip
     :nom="$equip->nom"
@@ -27,9 +26,9 @@
             {{ $partit->data_partit }}:
             {{ $partit->equipLocal->nom }}
             {{ $partit->gols_local !== null && $partit->gols_visitant !== null 
-                        ? $partit->gols_local . ' - ' . $partit->gols_visitant 
-                        : 'No jugat' 
-                    }}
+                                ? $partit->gols_local . ' - ' . $partit->gols_visitant 
+                                : 'No jugat' 
+                            }}
             {{ $partit->equipVisitant->nom }}
         </li>
         @endforeach

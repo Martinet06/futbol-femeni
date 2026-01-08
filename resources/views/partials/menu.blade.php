@@ -1,9 +1,20 @@
-<nav>
-    <ul class="flex space-x-4">
-        <li><a class="text-white hover:underline" href="/">Inici</a></li>
-        <li><a class="text-white hover:underline" href="{{ route('equips.index') }}">Llistat d'Equips</a></li>
-        <li><a class="text-white hover:underline" href="{{ route('estadis.index') }}">Llistat d'Estadis</a></li>
-        <li><a class="text-white hover:underline" href="{{ route('jugadores.index') }}">Llistat de Jugadores</a></li>
-        <li><a class="text-white hover:underline" href="{{ route('partits.index') }}">Llistat de Partits</a></li>
-    </ul>
-</nav>
+<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+    <x-nav-link :href="route('equips.index')" :active="request()->routeIs('dashboard')">
+        {{ __('Guia Equips') }}
+    </x-nav-link>
+</div>
+<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+    <x-nav-link :href="route('estadis.index')" :active="request()->routeIs('dashboard')">
+        {{ __('Guia Estadis') }}
+    </x-nav-link>
+</div>
+<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+    <x-nav-link :href="route('jugadores.index')" :active="request()->routeIs('dashboard')">
+        {{ __('Guia Jugadores') }}
+    </x-nav-link>
+</div>
+<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+    <x-nav-link :href="route('partits.index')" :active="request()->routeIs('dashboard')">
+        {{ __('Guia Partits') }}
+    </x-nav-link>
+</div>
