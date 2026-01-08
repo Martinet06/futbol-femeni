@@ -7,11 +7,12 @@ use App\Http\Requests\UpdateEquipRequest;
 use App\Models\Equip;
 use App\Models\Estadi;
 use App\Services\EquipService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class EquipController extends Controller
 {
+
+    use AuthorizesRequests;
     public function __construct(private EquipService $servei) {}
 
     // GET /equips
@@ -23,13 +24,15 @@ class EquipController extends Controller
     // GET /equips/create
     public function create()
     {
+        $this->authorize('create', Equip::class);
         $estadis = Estadi::all();
         return view('equips.create', compact('estadis'));
     }
     // POST /equips
     public function store(StoreEquipRequest $request)
     {
-        $this->servei->guardar($request->validated());
+
+        $this->servei->guardar($request->validated(), $request->file('escut'));
         return redirect()->route('equips.index');
     }
 
@@ -42,13 +45,16 @@ class EquipController extends Controller
     // GET /equips/{id}/edit
     public function edit(Equip $equip)
     {
-        return view('equips.edit', compact('equip'));
+        $this->authorize('update', $equip);
+        $estadis = Estadi::all();
+        return view('equips.edit', compact('equip', 'estadis'));
     }
 
     // PUT /equips/{id}/edit
-    public function update(Request $request, Equip $equip)
+    public function update(UpdateEquipRequest $request, Equip $equip)
     {
-        $this->servei->actualitzar($equip, $request->validated());
+
+        $this->servei->actualitzar($equip->id, $request->validated(), $request->file('escut'));
         return redirect()->route('equips.index')->with('ok', 'Equip actualitzat');
     }
 
@@ -56,9 +62,10 @@ class EquipController extends Controller
 
 
     // DELETE /equips/{id}
-    public function destroy($id)
+    public function destroy(Equip $equip)
     {
-        $this->servei->eliminar($id);
+        $this->authorize('delete', $equip);
+        $this->servei->eliminar($equip->id);
         return redirect()->route('equips.index');
     }
 }

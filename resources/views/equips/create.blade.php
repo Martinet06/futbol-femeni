@@ -12,7 +12,7 @@
 </div>
 @endif
 
-<form action="{{ route('equips.store') }}" method="POST" class="space-y-4">
+<form action="{{ route('equips.store') }}" method="POST" class="space-y-4" enctype="multipart/form-data">
     @csrf
     <div>
         <label for="nom" class="block font-bold">Nom:</label>
@@ -31,6 +31,11 @@
     <div>
         <label for="titols" class="block font-bold">Títols:</label>
         <input type="number" name="titols" id="titols" value="{{ old('titols') }}" class="border p-2 w-full">
+    </div>
+    <div class="mb-4">
+        <label for="escut" class="block text-sm font-medium text-gray-700 mb-1">Escut:</label>
+        <input type="file" name="escut" id="escut"
+            class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500">
     </div>
     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Afegir</button>
 </form>

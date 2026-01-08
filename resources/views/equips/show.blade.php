@@ -5,7 +5,8 @@
 <x-equip
     :nom="$equip->nom"
     :estadi="$equip->estadi->nom"
-    :titols="$equip->titols" />
+    :titols="$equip->titols"
+    :escut="$equip->escut" />
 
 <div class="mt-6 border rounded-lg shadow-md p-4 bg-white max-w-lg mx-auto">
     <h2 class="text-xl font-bold text-blue-800 mb-4">Estadístiques</h2>
