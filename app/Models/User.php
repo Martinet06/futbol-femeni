@@ -38,6 +38,11 @@ class User extends Authenticatable
         return $this->belongsTo(Equip::class);
     }
 
+    public function partitsArbitrars()
+    {
+        return $this->hasMany(Partit::class, 'arbitre_id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *

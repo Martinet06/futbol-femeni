@@ -9,11 +9,16 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Jugadora;
 use App\Models\Equip;
 use App\Services\JugadoraService;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class JugadoraController extends Controller
 {
+    use AuthorizesRequests;
 
-    public function __construct(private JugadoraService $servei) {}
+    public function __construct(private JugadoraService $servei)
+    {
+        $this->authorizeResource(Jugadora::class, 'jugadora');
+    }
 
 
     // GET /jugadores

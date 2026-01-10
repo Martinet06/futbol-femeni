@@ -3,12 +3,17 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreJugadoraRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        $user = Auth::user();
+        $equipId = $this->input('equip_id');
+
+        return $user->role === 'admin' ||
+            ($user->role === 'manager' && $user->equip_id == $equipId);
     }
 
     public function rules(): array

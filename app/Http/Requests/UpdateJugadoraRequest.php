@@ -3,12 +3,17 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateJugadoraRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        $jugadora = $this->route('jugadora');
+        $user = Auth::user();
+
+        return $user->role === 'admin' ||
+            ($user->role === 'manager' && $user->equip_id == $jugadora->equip_id);
     }
 
     public function rules(): array

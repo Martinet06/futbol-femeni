@@ -18,3 +18,8 @@
         {{ __('Guia Partits') }}
     </x-nav-link>
 </div>
+<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+    <x-nav-link :href="route('partits.historic')" :active="request()->routeIs('partits.historic')">
+        {{ __('Històric Partits') }}
+    </x-nav-link>
+</div>

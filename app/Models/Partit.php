@@ -27,4 +27,9 @@ class Partit extends Model
     {
         return $this->belongsTo(Equip::class, 'equip_visitant_id');
     }
+
+    public function arbitre()
+    {
+        return $this->belongsTo(User::class, 'arbitre_id');
+    }
 }

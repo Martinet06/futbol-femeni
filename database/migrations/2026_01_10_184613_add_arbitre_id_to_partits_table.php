@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['admin', 'manager', 'arbitre'])->default('arbitre');
+        Schema::table('partits', function (Blueprint $table) {
+            $table->foreignId('arbitre_id')->nullable()->contrained('users')->nullOnDelete();
         });
     }
 
@@ -21,8 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
+        Schema::table('partits', function (Blueprint $table) {
+            $table->dropForeign(['arbitre_id']);
+            $table->dropColumn('arbitre_id');
         });
     }
 };
