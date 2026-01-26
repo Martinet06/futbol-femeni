@@ -6,6 +6,7 @@ use App\Http\Controllers\JugadoraController;
 use App\Http\Controllers\PartitController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\RoleMiddleware;
+use App\Livewire\ClassificacioComponent;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -86,5 +87,7 @@ Route::get('/lang/{locale}', function ($locale) {
     }
     return back();
 })->name('setLocale');
+
+Route::get('/classificacio', ClassificacioComponent::class)->name('classificacio');
 
 require __DIR__ . '/auth.php';

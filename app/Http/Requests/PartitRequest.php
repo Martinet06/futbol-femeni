@@ -27,8 +27,20 @@ class PartitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'gols_local' => 'nullable|integer|min:0',
-            'gols_visitant' => 'nullable|integer|min:0',
+            'gols_local' => 'nullable|integer|min:0|max:99',
+            'gols_visitant' => 'nullable|integer|min:0|max:99',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'gols_local.integer' => 'Els gols de l\'equip local han de ser un nombre enter.',
+            'gols_local.min' => 'Els gols de l\'equip local no poden ser negatius.',
+            'gols_local.max' => 'Els gols de l\'equip local no poden ser més de 99.',
+            'gols_visitant.integer' => 'Els gols de l\'equip visitant han de ser un nombre enter.',
+            'gols_visitant.min' => 'Els gols de l\'equip visitant no poden ser negatius.',
+            'gols_visitant.max' => 'Els gols de l\'equip visitant no poden ser més de 99.',
         ];
     }
 }

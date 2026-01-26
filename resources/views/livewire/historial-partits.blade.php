@@ -17,10 +17,11 @@
         <tbody>
             @foreach($partits as $partit)
             <tr>
-                <td>{{ $partit->data }}</td>
-                <td>{{ $partit->equipLocal->nom }}</td>
-                <td>{{ $partit->equipVisitant->nom }}</td>
-                <td>{{ $partit->resultat }}</td>
+
+                <td align="center">{{ $partit->data_partit }}</td>
+                <td align="center">{{ $partit->equipLocal->nom }}</td>
+                <td align="center">{{ $partit->equipVisitant->nom }}</td>
+                <td align="center">{{ $partit->gols_local }} - {{ $partit->gols_visitant }}</td>
             </tr>
             @endforeach
         </tbody>
