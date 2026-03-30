@@ -2,28 +2,63 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Jugadora;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class UpdateJugadoraRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        $jugadora = $this->route('jugadora');
         $user = Auth::user();
 
-        return $user->role === 'admin' ||
-            ($user->role === 'manager' && $user->equip_id == $jugadora->equip_id);
+        // Si no hi ha usuari, denega
+        if (!$user) {
+            return false;
+        }
+
+        // Si és admin, permet sempre
+        if ($user->role === 'admin') {
+            return true;
+        }
+
+        // Si és manager, necessitem validar l'equip
+        if ($user->role === 'manager') {
+            // Obtenim el paràmetre de la ruta (en el teu cas serà un ID string)
+            $routeParam = $this->route('jugadora');
+
+            // Busquem la jugadora manualment
+            $jugadora = Jugadora::find($routeParam);
+
+            // Denega si no trobem la jugadora o no coincideix l'equip
+            return $jugadora && $user->equip_id == $jugadora->equip_id;
+        }
+
+        // Qualsevol altre rol: denega
+        return false;
     }
 
     public function rules(): array
     {
-        $jugadoraId = $this->route('jugadora')->id;
+
+        $jugadoraId = $this->route('jugadora');
+        $jugadora = Jugadora::find($jugadoraId);
+        //dd($jugadoraId);
+        //dd($jugadora);
 
         return [
             'nom' => 'required|string|min:3|max:255',
             'equip_id' => 'required|integer|exists:equips,id',
-            'dorsal' => 'required|integer|min:1|max:99|unique:jugadores,dorsal,' . $jugadoraId . ',id,equip_id,' . $this->input('equip_id'),
+            'dorsal' => [
+                'required',
+                'integer',
+                'min:1',
+                'max:99',
+                Rule::unique('jugadores', 'dorsal')
+                    ->ignore($jugadoraId)
+                    ->where('equip_id', $this->input('equip_id'))
+            ],
             'data_naixement' => [
                 'required',
                 'date',

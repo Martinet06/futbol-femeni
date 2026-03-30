@@ -16,6 +16,8 @@ class Partit extends Model
         'data_partit',
         'gols_local',
         'gols_visitant',
+        'arbitre_id',
+        'jornada',
     ];
 
     public function equipLocal()

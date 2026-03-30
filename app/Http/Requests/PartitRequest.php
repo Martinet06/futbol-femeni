@@ -13,6 +13,16 @@ class PartitRequest extends FormRequest
     public function authorize(): bool
     {
         $partit = $this->route('partit');
+
+        // Si el paràmetre és un ID (int/string), carreguem el model
+        if (is_numeric($partit) || is_string($partit)) {
+            $partit = \App\Models\Partit::find($partit);
+        }
+
+        if (!$partit) {
+            return false;
+        }
+
         $user = Auth::user();
 
         return $user->role === 'admin' ||

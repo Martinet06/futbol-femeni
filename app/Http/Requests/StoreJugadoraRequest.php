@@ -28,7 +28,7 @@ class StoreJugadoraRequest extends FormRequest
                 'before:today',
                 'before_or_equal:' . now()->subYears(16)->format('Y-m-d'),
             ],
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:png|max:1024',
         ];
     }
 

@@ -23,8 +23,9 @@ class JugadoraService
         return $this->repo->create($data);
     }
 
-    public function actualitzar($id, array $data)
+    public function actualitzar($jugadora, array $data)
     {
+        $id = is_object($jugadora) ? $jugadora->id : $jugadora;
         return $this->repo->update($id, $data);
     }
 

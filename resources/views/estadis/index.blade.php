@@ -17,6 +17,7 @@
         <tr>
             <th class="border border-gray-300 p-2">Nom</th>
             <th class="border border-gray-300 p-2">Capacitat</th>
+            <th class="border border-gray-300 p-2">Accions</th>
         </tr>
     </thead>
     <tbody>
@@ -26,6 +27,25 @@
                 <a href="{{ route('estadis.show',  $estadi->id) }}" class="text-blue-700 hover:underline">{{ $estadi->nom }}</a>
             </td>
             <td class="border border-gray-300 p-2">{{ $estadi->capacitat }}</td>
+            <td class="border border-gray-300 p-2 flex space-x-2">
+                @can('update', $estadi)
+                <a href="{{ route('estadis.edit', $estadi->id) }}"
+                    class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600 flex items-center space-x-1">
+                    <span>✏️</span>
+                </a>
+                @endcan
+                @can('delete',$estadi)
+                <form action="{{ route('estadis.destroy', $estadi->id) }}" method="POST"
+                    onsubmit="return confirm('Segur que vols eliminar aquest estadi?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                        class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 flex items-center space-x-1">
+                        <span>🗑️</span>
+                    </button>
+                </form>
+                @endcan
+            </td>
         </tr>
         @endforeach
     </tbody>

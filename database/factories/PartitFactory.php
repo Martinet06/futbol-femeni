@@ -13,11 +13,16 @@ class PartitFactory extends Factory
 
     public function definition(): array
     {
-        $equips = Equip::pluck('id')->toArray();
+        $equips = Equip::all();
 
-        // Equip local i visitant poden coincidir
-        $local = $this->faker->randomElement($equips);
-        $visitant = $this->faker->randomElement($equips);
+        // Si no hi ha equips, en creem dos
+        if ($equips->isEmpty()) {
+            $equips = Equip::factory()->count(2)->create();
+        }
+
+        // Equip local i visitant diferents
+        $local = $equips->random()->id;
+        $visitant = $equips->where('id', '!=', $local)->first()?->id ?? $equips->random()->id;
 
         // 50% partits jugats, 50% partits futurs
         $esJugat = $this->faker->boolean();

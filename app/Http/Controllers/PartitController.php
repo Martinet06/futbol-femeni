@@ -7,7 +7,9 @@ use App\Models\Partit;
 use App\Models\Equip;
 use Illuminate\Http\Request;
 use App\Services\PartitService;
+use App\Services\WeatherService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Http\Resources\PartitResource;
 
 class PartitController extends Controller
 {
@@ -23,7 +25,17 @@ class PartitController extends Controller
     public function show(Partit $partit)
     {
         $partit->load(['equipLocal', 'equipVisitant']);
-        return view('partits.show', compact('partit'));
+
+        // Get weather forecast for match day
+        $weather = null;
+        if ($partit->equipLocal && $partit->equipLocal->estadi) {
+            $weather = WeatherService::getStadiumWeather(
+                $partit->equipLocal->estadi,
+                $partit->data_partit
+            );
+        }
+
+        return view('partits.show', compact('partit', 'weather'));
     }
 
     public function historic()
@@ -39,7 +51,16 @@ class PartitController extends Controller
 
     public function update(PartitRequest $request, Partit $partit)
     {
-        $partit->update($request->validated());
-        return redirect()->route('partits.index')->with('success', 'Resultat actualitzat!');
+        $this->authorize('update', $partit);
+        $validated = $request->validated();
+        $partit->update($validated);
+
+        // If it's an API request (expects JSON), return JSON response
+        if ($request->expectsJson()) {
+            return new PartitResource($partit->load(['equipLocal', 'equipVisitant']));
+        }
+
+        // Otherwise redirect back with success message
+        return redirect()->route('partits.index')->with('success', __('Resultat actualitzat correctament!'));
     }
 }

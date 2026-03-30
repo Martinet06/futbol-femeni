@@ -12,7 +12,7 @@ class Estadi extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'capacitat'];
+    protected $fillable = ['nom', 'capacitat', 'description'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

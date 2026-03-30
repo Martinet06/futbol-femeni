@@ -3,40 +3,33 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\JugadoraRequest;
+use App\Http\Resources\JugadoraCollection;
+use App\Http\Resources\JugadoraResource;
 use App\Models\Jugadora;
 use Illuminate\Http\Request;
-use App\Http\Resources\JugadoraResource;
-use App\Http\Resources\JugadoraCollection;
-
 
 class JugadoraController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return new JugadoraCollection(Jugadora::paginate(5));
+        return new JugadoraCollection(Jugadora::paginate(10));
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(JugadoraRequest $request)
     {
-        //
+        $jugadora = Jugadora::create($request->validated());
+        return response()->json($jugadora, 201);
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\Jugadora  $jugadora
-     * @return \Illuminate\Http\Response
      */
     public function show(Jugadora $jugadora)
     {
@@ -45,24 +38,19 @@ class JugadoraController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Jugadora  $jugadora
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Jugadora $jugadora)
+    public function update(JugadoraRequest $request, Jugadora $jugadora)
     {
-        //
+        $jugadora->update($request->validated());
+        return response()->json($jugadora, 200);
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Jugadora  $jugadora
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Jugadora $jugadora)
     {
-        //
+        $jugadora->delete();
+        return response()->noContent();
     }
 }

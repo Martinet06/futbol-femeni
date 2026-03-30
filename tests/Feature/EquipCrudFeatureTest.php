@@ -41,7 +41,7 @@ class EquipCrudFeatureTest extends TestCase
     public function test_es_pot_crear_un_equip()
     {
         $u = User::factory()->create([
-            'role' => 'administrador',     // per store/destroy
+            'role' => 'admin',     // per store/destroy
             'email_verified_at' => now(),  // per si algun middleware demana verified
         ]);
         $this->actingAs($u);
@@ -101,7 +101,7 @@ class EquipCrudFeatureTest extends TestCase
     public function test_es_pot_esborrar_un_equip()
     {
         $u = User::factory()->create([
-            'role' => 'administrador',     // per store/destroy
+            'role' => 'admin',     // per store/destroy
             'email_verified_at' => now(),  // per si algun middleware demana verified
         ]);
         $this->actingAs($u);

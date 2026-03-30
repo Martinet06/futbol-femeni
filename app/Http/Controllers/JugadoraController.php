@@ -10,6 +10,7 @@ use App\Models\Jugadora;
 use App\Models\Equip;
 use App\Services\JugadoraService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Log;
 
 class JugadoraController extends Controller
 {
@@ -17,7 +18,7 @@ class JugadoraController extends Controller
 
     public function __construct(private JugadoraService $servei)
     {
-        $this->authorizeResource(Jugadora::class, 'jugadora');
+        //$this->authorizeResource(Jugadora::class, 'jugadora');
     }
 
 
@@ -57,31 +58,30 @@ class JugadoraController extends Controller
     }
 
     // GET /jugadores/{id}
-    public function show(Jugadora $jugadora)
+    public function show($jugadoraId)
     {
-        $jugadora->load('equip');
+        $jugadora = $this->servei->trobar($jugadoraId);
         return view('jugadores.show', compact('jugadora'));
     }
 
     // GET  /jugadores/{id}/edit
-    public function edit(Jugadora $jugadora)
+    public function edit($jugadoraId)
     {
         $equips = Equip::all();
-        return view('jugadores.edit', compact('jugadores', 'equips'));
+        $jugadora = $this->servei->trobar($jugadoraId);
+        return view('jugadores.edit', compact('jugadora', 'equips'));
     }
 
     // PUT /jugadores/{id}
-    public function update(UpdateJugadoraRequest $request, Jugadora $jugadora)
+    public function update(UpdateJugadoraRequest $request, $jugadoraId)
     {
+        $jugadora = $this->servei->trobar($jugadoraId);
         $data = $request->validated();
 
-        if ($request->hasFile('foto')) {
-            $data['foto'] = $request->file('foto')->store('jugadores', 'public');
-        }
+        $this->servei->actualitzar($jugadora, $data);
 
-        $this->servei->actualitzar($jugadora->id, $data);
 
-        return redirect()->route('jugadores.index')->with('success', 'Jugadora actualitzada correctament!');
+        return redirect()->route('jugadores.show', $jugadoraId)->with('ok', 'Jugadora actualitzada correctament!');
     }
 
     // DELETE /jugadores/{id}

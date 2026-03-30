@@ -20,13 +20,14 @@
             <th class="border border-gray-300 p-2">Dorsal</th>
             <th class="border border-gray-300 p-2">Data Naixement</th>
             <th class="border border-gray-300 p-2">Foto</th>
+            <th class="border border-gray-300 p-2">{{ __('Accions')}} </th>
         </tr>
     </thead>
     <tbody>
         @foreach($jugadores as $jugadora)
         <tr class="hover:bg-gray-100">
             <td class="border border-gray-300 p-2">
-                <a href="{{ route('jugadores.show', $jugadora) }}" class="text-blue-700 hover:underline">
+                <a href="{{ route('jugadores.show', $jugadora->id) }}" class="text-blue-700 hover:underline">
                     {{ $jugadora->nom }}
                 </a>
             </td>
@@ -39,6 +40,25 @@
                 @else
                 -
                 @endif
+            </td>
+            <td class="border border-gray-300 p-2 flex space-x-2">
+                @can('update', $jugadora)
+                <a href="{{ route('jugadores.edit', $jugadora->id) }}"
+                    class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600 flex items-center space-x-1">
+                    <span>✏️</span>
+                </a>
+                @endcan
+                @can('delete',$jugadora)
+                <form action="{{ route('jugadores.destroy', $jugadora->id) }}" method="POST"
+                    onsubmit="return confirm('Segur que vols eliminar aquesta jugadora?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                        class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 flex items-center space-x-1">
+                        <span>🗑️</span>
+                    </button>
+                </form>
+                @endcan
             </td>
         </tr>
         @endforeach

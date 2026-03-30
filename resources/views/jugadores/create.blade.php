@@ -46,5 +46,6 @@
     </div>
 
     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Afegir</button>
+    <a href="{{ route('jugadores.index') }}" class="ml-2 text-blue-700 hover:underline">Tornar</a>
 </form>
 @endsection

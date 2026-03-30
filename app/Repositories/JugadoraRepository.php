@@ -15,7 +15,7 @@ class JugadoraRepository implements BaseRepository
 
     public function find($id)
     {
-        return Jugadora::findOrFail($id);
+        return Jugadora::with('equip')->findOrFail($id);
     }
 
     public function create(array $data)
@@ -25,6 +25,7 @@ class JugadoraRepository implements BaseRepository
 
     public function update($id, array $data)
     {
+        //dd($data);
         $jugadora = $this->find($id);
         $jugadora->update($data);
         return $jugadora;

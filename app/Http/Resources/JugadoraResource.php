@@ -15,8 +15,8 @@ class JugadoraResource extends JsonResource
             'posicio' => $this->posicio,
             'dorsal' => $this->dorsal,
             'edat' => $this->edat,
-            'partits_jugats' => $this->partits->count(), // Exemple de relació
-            'mitjana_gols' => $this->partits->avg('gols'), // Camps derivats
+            'partits_jugats' => $this->partits?->count() ?? 0,
+            'mitjana_gols' => round($this->partits?->avg('gols') ?? 0, 2),
         ];
     }
 }
